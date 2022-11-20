@@ -30,8 +30,9 @@ function LoginCard() {
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
-            signInWithEmailAndPassword(auth, values.email, values.password).then(
+            signInWithEmailAndPassword(auth, values.email, values.password).then((userCredential) => {
                 navigator("/homepage")
+            }
             )
 
         }
