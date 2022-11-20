@@ -1,60 +1,62 @@
 import React, {useState} from 'react';
 import {Input, IconButton, InputAdornment, Stack, InputLabel, FormControl, Button,} from "@mui/material";
 import {Visibility, Person, VisibilityOff} from "@mui/icons-material";
-import yup from'yup';
+import * as yup from'yup';
 import {useFormik} from "formik";
+import {getAuth, signInWithEmailAndPassword} from 'firebase/auth'
 
 
-function AuthenticationCard() {
+function LoginCard() {
+    const [showPassword, setShowPassword] = useState(false)
+
+    const auth = getAuth();
+
     const validationSchema = yup.object({
         email: yup
             .string('Enter your email')
             .email('Valid email address required')
             .required('Email is required'),
         password: yup
+            .string('Enter your password')
+            .min(9, 'Password must be 8 characters or longer')
+            .required('Password is required')
 
     })
     const formik = useFormik({
         initialValues: {
-            email: values.email,
-            password: "",
+            email: "email@gmail.com",
+            password: "password",
+        },
+        validationSchema: validationSchema,
+        onSubmit: (values) => {
+            signInWithEmailAndPassword(auth, values.email, values.password).then()
+
         }
     })
-    const [values, setValues] = useState({
-        email: '',
-        password: '',
-        showPassword: false,
-    })
 
-    const handleChange = (prop) => (event) => {
-        setValues({ ...values, [prop]: event.target.value });
-    };
 
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
 
     const handleClickShowPassword = () => {
-        setValues({
-            ...values,
-            showPassword: !values.showPassword,
-        });
+        setShowPassword(!showPassword);
     };
 
     return <div className="login-div">
+        <form onSubmit={formik.handleSubmit}>
         <Stack
-            component="form"
             sx={{
                 width: '25ch',
             }}
-            spacing={2}
-            noValidate
-            autoComplete="off">
+            justifyContent="center"
+            alignItems="center"
+            spacing={2}>
             <FormControl>
-                <InputLabel htmlFor="login-email">Email</InputLabel>
-                    <Input id="login-email"
-                        onChange={handleChange('email')}
-                        value={values.email}
+                <InputLabel htmlFor="email">Email</InputLabel>
+                    <Input id="email"
+                        onChange={formik.handleChange}
+                        value={formik.values.email}
                         endAdornment={
                             <InputAdornment position="end">
                                 <Person/>
@@ -64,34 +66,32 @@ function AuthenticationCard() {
             </FormControl>
 
             <FormControl>
-                <InputLabel htmlFor="login-password">Password</InputLabel>
+                <InputLabel htmlFor="password">Password</InputLabel>
                     <Input
-                        id="login-password"
-                        type={values.showPassword ? "text" : "password"}
-                        onChange={handleChange('password')}
+                        id="password"
+                        type={showPassword ? "text" : "password"}
+                        onChange={formik.handleChange}
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton
                                     aria-label="toggle password visibility"
 
-                                    value={values.password}
+                                    value={formik.values.password}
                                     onClick={handleClickShowPassword}
                                     onMouseDown={handleMouseDownPassword}
                                     edge="end"
                                 >
-                                    {values.showPassword ? <Visibility/> : <VisibilityOff/>}
+                                    {showPassword ? <Visibility/> : <VisibilityOff/>}
                                 </IconButton>
                             </InputAdornment>
                         }
                     />
             </FormControl>
             </Stack>
-
-            <Button className="login-button" variant="outlined">Login</Button>
-            <Button className="login-register-button" variant="contained">Register</Button>
-
-    </div>
+            <Button type='submit' className="login-button" variant="outlined">Login</Button>
+    </form>
+</div>
 
 }
 
-export default AuthenticationCard;
+export default LoginCard;
