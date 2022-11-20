@@ -1,18 +1,25 @@
 import React, {useState} from 'react';
-import {
-    Input,
-    IconButton,
-    InputAdornment,
-    Stack,
-    InputLabel,
-    FormControl,
-    Button,
-} from "@mui/material";
+import {Input, IconButton, InputAdornment, Stack, InputLabel, FormControl, Button,} from "@mui/material";
 import {Visibility, Person, VisibilityOff} from "@mui/icons-material";
+import yup from'yup';
+import {useFormik} from "formik";
 
 
 function AuthenticationCard() {
+    const validationSchema = yup.object({
+        email: yup
+            .string('Enter your email')
+            .email('Valid email address required')
+            .required('Email is required'),
+        password: yup
 
+    })
+    const formik = useFormik({
+        initialValues: {
+            email: values.email,
+            password: "",
+        }
+    })
     const [values, setValues] = useState({
         email: '',
         password: '',
