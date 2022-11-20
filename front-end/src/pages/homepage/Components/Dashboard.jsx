@@ -10,23 +10,28 @@ import CreateCredential from "../../CreateCredential/CreateCredential";
 import { Box, Chip, Fab } from "@mui/material";
 import ShareIcon from '@mui/icons-material/Share';
 import { useNavigate } from 'react-router-dom'
+import QRCode from "react-qr-code";
+import TransitionsModal from "../../CreateCredential/Components/ModalWrapper";
+import TransitionsModalWithout from "../../CreateCredential/Components/TransitionModalWithout";
 
 
 const columns = [
-  { field: "id", headerName: "id", width: 130 },
   { field: "name", headerName: "Name", width: 130 },
   {
     field: "verifiedAt",
     headerName: "Issued On",
     type: "number",
     width: 150,
+    // renderCell: (params) => {
+    //   return <span>{params.row.verifiedAt}</span>
+    // }
   },
   {
     field: "isVerified",
     headerName: "Status",
     width: 130,
     renderCell: (params) => {
-      return params.row.isVerified ? <Chip label="verified" color='success' /> : <Chip label="unverified" color='warning' />
+      return params.row.isVerified ? <Chip label="verified" color='success' /> : <Chip label="pending" color='warning' />
     }
 
   },
@@ -54,6 +59,7 @@ export default function Dashboard() {
   const [selectionModel, setSelectionModel] = useState([]);
   const [showShare, setShowShare] = useState(false)
   const navigator = useNavigate()
+  const [openModel, setOpenModel] = useState(false);
 
   const documentCollectionRef = collection(db, "documents");
 
@@ -104,12 +110,20 @@ export default function Dashboard() {
         {showShare && (
           <Box sx={{ marginBottom: '8px' }}>
             <Fab onClick={() => {
-              handleShare()
+              setOpenModel(true)
+              // handleShare()
             }}>
               <ShareIcon />
             </Fab>
           </Box>
         )}
+        <TransitionsModalWithout openModel={openModel} setOpenModel={setOpenModel}>
+          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: '70px' }}>
+            {<QRCode value={`https://hack-the-change-2022.vercel.app/profile/${selectionModel.reduce((acc, curr) => {
+              return acc + curr + ","
+            }, '?docs=')}`} />}
+          </Box>
+        </TransitionsModalWithout>
         <CreateCredential />
       </Box>
     </div>

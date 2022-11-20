@@ -32,7 +32,7 @@ const columns = [
 		headerName: "Status",
 		width: 130,
 		renderCell: (params) => {
-			return params.row.isVerified ? <Chip label="verified" color='success' /> : <Chip label="unverified" color='warning' />
+			return params.row.isVerified ? <Chip label="verified" color='success' /> : <Chip label="pending" color='warning' />
 		}
 
 	},
