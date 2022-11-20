@@ -30,19 +30,9 @@ const CreateCredentail = () => {
 		onSubmit: values => {
 			addDoc(credentialRef, { ...values, pdfUrl, verfiedat: '', isverified: new Date() })
 		}
-
 	})
 
 	const { values, handleChange, setFieldValue } = formik
-
-	// useEffect(() => {
-	// 	getDownloadURL(imageRef).then((url) => {
-	// 		// Insert url into an <img> tag to "download"
-	// 		setPdfUrl(url);
-	// 	}).catch((error) => {
-	// 		// Handle any errors
-	// 	});
-	// }, [])
 
 	const onUploadFile = async (files) => {
 		console.log(files[0])
@@ -61,54 +51,71 @@ const CreateCredentail = () => {
 	}
 
 	return (
-		<FormikProvider value={formik}>
-			<TransitionsModal>
-				<Box sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-					<Grid container >
-						<Grid item xs={12} >
-							<FormControl fullWidth>
-								<InputLabel id="credentialName">Credential Name</InputLabel>
-								<Select
-									labelId="credentialName"
-									key="credentialName"
-									label="Credential Name"
-									value={values.credentialName}
-									onChange={(e) => setFieldValue('credentialName', e.target.value)}
-								>
-									<MenuItem value={"IELTS"}>IELTS</MenuItem>
-									<MenuItem value={"TOFEL"}>TOFEL</MenuItem>
-									<MenuItem value={"TRANSCRIPT"}>Transcript</MenuItem>
-									<MenuItem value={"DIPLOMA"}>Diploma</MenuItem>
-								</Select>
-							</FormControl>
-						</Grid>
-						<Grid item xs={12} sx={{ border: '1px dashed grey', borderRadius: '10px' }}>
-							<Box sx={{ display: 'relative', flexDirection: "column", }}>
-								<Dropzone onDrop={onUploadFile} >
-									{({ getRootProps, getInputProps }) => (
-										<section>
-											<div {...getRootProps()}>
-												<input {...getInputProps()} />
-												<Box sx={{ position: 'absolute', left: '50%' }}>Drag 'n' drop some files here, or click to select files</Box>
-											</div>
-										</section>
-									)}
-								</Dropzone>
-								<Box>
-									<ViewPdf fileData={file} />
-								</Box>
-							</Box>
-							{/* <UploadButtons /> */}
-						</Grid>
-						<Grid item xs={12}>
-
-							<Button variant='outlined' onClick={formik.submitForm}>Submit</Button>
-						</Grid>
-					</Grid>
-				</Box>
-			</TransitionsModal>
-		</FormikProvider>
-	)
+    <FormikProvider value={formik}>
+      <TransitionsModal>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Grid container rowGap={4}>
+            <Grid item xs={12}>
+              <FormControl fullWidth>
+                <InputLabel id="credentialName">Credential Name</InputLabel>
+                <Select
+                  labelId="credentialName"
+                  key="credentialName"
+                  label="Credential Name"
+                  value={values.credentialName}
+                  onChange={(e) =>
+                    setFieldValue("credentialName", e.target.value)
+                  }
+                >
+                  <MenuItem value={"IELTS"}>IELTS</MenuItem>
+                  <MenuItem value={"TOFEL"}>TOFEL</MenuItem>
+                  <MenuItem value={"TRANSCRIPT"}>Transcript</MenuItem>
+                  <MenuItem value={"DIPLOMA"}>Diploma</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              sx={{ border: "1px dashed grey", borderRadius: "10px" }}
+            >
+              <Box sx={{ flexDirection: "column" }}>
+                <Dropzone onDrop={onUploadFile}>
+                  {({ getRootProps, getInputProps }) => (
+                    <>
+                      <section>
+                        <div {...getRootProps()}>
+                          <input {...getInputProps()} />
+                          <Box sx={{ position: "absolute", left: "50%" }}>
+                            Drag 'n' drop some files here, or click to select
+                            files
+                          </Box>
+                        </div>
+                      </section>
+                      <Box>
+                        <ViewPdf fileData={file} />
+                      </Box>
+                    </>
+                  )}
+                </Dropzone>
+              </Box>
+            </Grid>
+            <Grid item xs={12}>
+              <Button variant="outlined" onClick={formik.submitForm}>
+                Submit
+              </Button>
+            </Grid>
+          </Grid>
+        </Box>
+      </TransitionsModal>
+    </FormikProvider>
+  );
 }
 
 export default CreateCredentail
