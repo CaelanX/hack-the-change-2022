@@ -9,7 +9,6 @@ import {
   deleteDoc,
   doc,
 } from "firebase/firestore";
-import Homepage from "./pages/homepage";
 import LoginCard from "./pages/login/Components/LoginCard";
 
 function App() {
