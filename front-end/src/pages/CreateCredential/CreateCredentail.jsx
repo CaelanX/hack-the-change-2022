@@ -22,7 +22,6 @@ const CreateCredentail = () => {
 
 
 	const storage = getStorage();
-
 	const formik = useFormik({
 		initialValues: {
 			credentialName: 'IELTS',
@@ -54,7 +53,7 @@ const CreateCredentail = () => {
 
 	return (
     <FormikProvider value={formik}>
-      <TransitionsModal>
+      <TransitionsModal openModel={openModel} setOpenModel={setOpenModel}>
         <Box
           sx={{
             display: "flex",
