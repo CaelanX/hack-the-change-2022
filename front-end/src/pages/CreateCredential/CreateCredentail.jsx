@@ -15,13 +15,13 @@ import Dropzone from 'react-dropzone'
 
 const CreateCredentail = () => {
 	const credentialRef = collection(db, 'documents')
+
+	const [openModel, setOpenModel] = React.useState(false);
 	const [pdfUrl, setPdfUrl] = useState(undefined);
 	const [file, setFile] = useState(undefined);
 
 
-	// Create a root reference
 	const storage = getStorage();
-	// const imageRef = ref(storage, file);
 
 	const formik = useFormik({
 		initialValues: {
@@ -29,20 +29,12 @@ const CreateCredentail = () => {
 		},
 		onSubmit: values => {
 			addDoc(credentialRef, { ...values, pdfUrl, verfiedat: '', isverified: new Date() })
+			setOpenModel(false);
 		}
 
 	})
 
 	const { values, handleChange, setFieldValue } = formik
-
-	// useEffect(() => {
-	// 	getDownloadURL(imageRef).then((url) => {
-	// 		// Insert url into an <img> tag to "download"
-	// 		setPdfUrl(url);
-	// 	}).catch((error) => {
-	// 		// Handle any errors
-	// 	});
-	// }, [])
 
 	const onUploadFile = async (files) => {
 		console.log(files[0])
@@ -54,6 +46,7 @@ const CreateCredentail = () => {
 
 		await getDownloadURL(storageRef).then((url) => {
 			setPdfUrl(url);
+			
 		}).catch((error) => {
 			// Handle any errors
 		});
@@ -62,7 +55,10 @@ const CreateCredentail = () => {
 
 	return (
 		<FormikProvider value={formik}>
-			<TransitionsModal>
+			<TransitionsModal 
+			openModel={openModel} 
+			setOpenModel={setOpenModel}
+			>
 				<Box sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
 					<Grid container >
 						<Grid item xs={12} >
