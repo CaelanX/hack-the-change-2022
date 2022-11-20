@@ -9,10 +9,8 @@ import { async } from "@firebase/util";
 import CreateCredential from "../../CreateCredential/CreateCredential";
 
 const columns = [
-  { field: "name", 
-    headerName: "Name", 
-    width: 130 
-  },
+  { field: "id", headerName: "id", width: 130 },
+  { field: "name", headerName: "Name", width: 130 },
   {
     field: "verifiedAt",
     headerName: "Issued On",
@@ -54,7 +52,7 @@ export default function Dashboard() {
 
   const fetchData = async () => {
     const data = await getDocs(documentCollectionRef);
-    setDocuments(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    setDocuments(data.docs.map((doc) => ({ ...doc.data(), id: doc.id, pros: doc.id })));
   }
 
   console.log(documents)
