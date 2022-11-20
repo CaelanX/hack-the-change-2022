@@ -2,10 +2,11 @@ import React from 'react'
 import {FormikProvider, useFormik} from 'formik'
 import * as yup from 'yup'
 import {db} from '../../../firebase-config'
-import {Button, FormControl, Input, InputAdornment, InputLabel, Stack} from "@mui/material";
+import {Button, FormControl, Input, InputAdornment, InputLabel, Stack, Typography} from "@mui/material";
 import {Mail, Person} from "@mui/icons-material";
 import {collection, doc, setDoc} from "firebase/firestore";
 import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth'
+import "./RegisterCard.css"
 
 const RegisterCard = () => {
     
@@ -81,26 +82,30 @@ const RegisterCard = () => {
         onSubmit:(values) => {onRegister(values)},
     });
 
-    return <div>
-        <form >
+    return <div className='register-page'>
+        <Typography className="register-title" sx={{fontWeight: "bold",}
+        } variant="h1">
+            Uni<span>Creds</span>
+        </Typography>
+        <form className="register-form">
             <FormikProvider value={formik}>
             <Stack sx={{
-                       width: '50ch',
+                       width: '35ch',
                    }}
                    justifyContent="center"
                    alignItems="center"
                    spacing={2}>
 
-                <FormControl>
+                <FormControl fullWidth={true}>
                     <InputLabel htmlFor="name.first">First Name</InputLabel>
-                    <Input id="name.first"
+                    <Input fullWidth={true} id="name.first"
                            type="text"
                            onChange={formik.handleChange}
                            value={formik.values.name.first}
                     />
                 </FormControl>
 
-                <FormControl>
+                <FormControl fullWidth={true}>
                     <InputLabel htmlFor="name.last">Last Name</InputLabel>
                     <Input id="name.last"
                            type="text"
@@ -109,7 +114,7 @@ const RegisterCard = () => {
                     />
                 </FormControl>
 
-                <FormControl>
+                <FormControl fullWidth={true}>
                 <InputLabel htmlFor="email">Email</InputLabel>
                 <Input id="email"
                        onChange={formik.handleChange}
@@ -117,7 +122,7 @@ const RegisterCard = () => {
                        type="text"
                 />
                 </FormControl>
-                <FormControl>
+                <FormControl fullWidth={true}>
                     <InputLabel htmlFor="address.street">Street Address</InputLabel>
                     <Input id="address.street"
                            type="text"
@@ -125,7 +130,7 @@ const RegisterCard = () => {
                            value={formik.values.address.street}
                     />
                 </FormControl>
-                <FormControl>
+                <FormControl fullWidth={true}>
                     <InputLabel htmlFor="address.city">City</InputLabel>
                     <Input id="address.city"
                            type="text"
@@ -133,7 +138,7 @@ const RegisterCard = () => {
                            value={formik.values.address.city}
                     />
                 </FormControl>
-                <FormControl>
+                <FormControl fullWidth={true}>
                     <InputLabel htmlFor="address.state">State, Province, or Territory</InputLabel>
                     <Input id="address.state"
                            type="text"
@@ -141,7 +146,7 @@ const RegisterCard = () => {
                            value={formik.values.address.state}
                     />
                 </FormControl>
-                <FormControl>
+                <FormControl fullWidth={true}>
                     <InputLabel htmlFor="address.country">Country</InputLabel>
                     <Input id="address.country"
                            type="text"
@@ -149,7 +154,7 @@ const RegisterCard = () => {
                            value={formik.values.address.country}
                     />
                 </FormControl>
-                <FormControl>
+                <FormControl fullWidth={true}>
                     <InputLabel htmlFor="password">Password</InputLabel>
                     <Input id="password"
                            type="password"
@@ -157,7 +162,7 @@ const RegisterCard = () => {
                            value={formik.values.password}
                     />
                 </FormControl>
-                <Button form="register-form" onClick={formik.submitForm} variant='contained'>Register</Button>
+                <Button form="register-form" onClick={formik.submitForm} sx={{backgroundColor: "darkred"}} variant='contained'>Register</Button>
 
             </Stack>
             </FormikProvider>

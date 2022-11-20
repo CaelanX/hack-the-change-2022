@@ -7,9 +7,6 @@ import {getAuth, signInWithEmailAndPassword} from 'firebase/auth'
 import { useNavigate} from 'react-router-dom'
 import {red} from '@mui/material/colors'
 import {Typography} from '@mui/material';
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
 
 const auth = getAuth();
 
@@ -27,6 +24,7 @@ function LoginCard() {
             .string('Enter your password')
             .min(8, 'Password must be 8 characters or longer')
             .required('Password is required')
+
     })
     const formik = useFormik({
         initialValues: {
@@ -37,10 +35,7 @@ function LoginCard() {
         onSubmit: (values) => {
             signInWithEmailAndPassword(auth, values.email, values.password)
                 .then((userCredential) => {
-               toast.success("Loggin In");
-               setTimeout(() => {
-                  navigator("/homepage")
-               }, 3000);
+                navigator("/homepage")
             }
             )
         }
@@ -62,6 +57,7 @@ function LoginCard() {
       <div
         className="login-div"
         style={{
+        //   border: "2px solid black",
           width: "30%",
           height: "30rem",
           margin: "200px auto",
@@ -70,7 +66,8 @@ function LoginCard() {
           justifyContent: "space-between",
           alignItems: "center",
           padding: "20px 20px",
-          backgroundColor: "#00000076",
+          borderRadius: "20px",
+          backgroundColor: "#f0f8fff7",
         }}
       >
         <Typography className="authentication-title" variant="h1">
@@ -149,17 +146,7 @@ function LoginCard() {
           onClick={handleClick}
         >
           <Typography style={{ color: "blue" }}>Sign up</Typography>
-        </a>
-        <ToastContainer
-          position="top-right"
-          autoClose={2500}
-          hideProgressBar={false}
-          newestOnTop={false}
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          theme="light"
-        />
+        </a>{" "}
       </div>
     );
 
