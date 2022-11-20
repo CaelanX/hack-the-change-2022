@@ -3,10 +3,14 @@ import {Input, IconButton, InputAdornment, Stack, InputLabel, FormControl, Butto
 import {Visibility, Person, VisibilityOff} from "@mui/icons-material";
 import * as yup from'yup';
 import {useFormik} from "formik";
+import {getAuth, signInWithEmailAndPassword} from 'firebase/auth'
 
 
 function AuthenticationCard() {
     const [showPassword, setShowPassword] = useState(false)
+
+    const auth = getAuth();
+
     const validationSchema = yup.object({
         email: yup
             .string('Enter your email')
@@ -25,6 +29,7 @@ function AuthenticationCard() {
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
+            signInWithEmailAndPassword(auth, values.email, values.password).then()
 
         }
     })
@@ -83,7 +88,7 @@ function AuthenticationCard() {
                     />
             </FormControl>
             </Stack>
-            <Button className="login-button" variant="outlined">Login</Button>
+            <Button type='submit' className="login-button" variant="outlined">Login</Button>
     </form>
 </div>
 
