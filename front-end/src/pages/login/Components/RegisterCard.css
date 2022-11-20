@@ -1,0 +1,16 @@
+.register-page{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.register-title {
+    display: flex;
+    font-weight: bold;
+}
+
+.register-title span{
+    color: darkred;
+}
+
+

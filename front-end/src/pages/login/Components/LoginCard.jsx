@@ -8,9 +8,7 @@ import { useNavigate} from 'react-router-dom'
 import {red} from '@mui/material/colors'
 import {Typography} from '@mui/material';
 
-const auth = () => {
-    return getAuth()
-};
+const auth = getAuth();
 
 function LoginCard() {
     const [showPassword, setShowPassword] = useState(false)
