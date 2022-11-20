@@ -111,7 +111,6 @@ export default function Dashboard() {
           <Box sx={{ marginBottom: '8px' }}>
             <Fab onClick={() => {
               setOpenModel(true)
-              // handleShare()
             }}>
               <ShareIcon />
             </Fab>
