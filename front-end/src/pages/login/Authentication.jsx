@@ -5,14 +5,19 @@ import {Button, Typography} from "@mui/material";
 
 function Authentication() {
 
-  return <div className="authentication-page" style={{
-    backgroundColor: "black", 
-    height: "100vh", 
-    position: "relative",
-    botton: "100"
-    }}>
-      true ?  <LoginCard /> : 
-       </div>
+  return (
+    <div
+      className="authentication-page"
+      style={{
+        backgroundColor: "#00000076",
+        height: "100vh",
+        position: "relative",
+        botton: "100",
+      }}
+    >
+      <LoginCard /> :
+    </div>
+  );
 }
 
 export default Authentication;

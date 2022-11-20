@@ -12,6 +12,7 @@ const auth = () => {
     return getAuth()
 };
 
+
 function LoginCard() {
     const [showPassword, setShowPassword] = useState(false)
 
@@ -59,7 +60,6 @@ function LoginCard() {
       <div
         className="login-div"
         style={{
-        //   border: "2px solid black",
           width: "30%",
           height: "30rem",
           margin: "200px auto",
@@ -68,8 +68,7 @@ function LoginCard() {
           justifyContent: "space-between",
           alignItems: "center",
           padding: "20px 20px",
-          borderRadius: "20px",
-          backgroundColor: "#f0f8fff7",
+          backgroundColor: "#00000076;",
         }}
       >
         <Typography className="authentication-title" variant="h1">
