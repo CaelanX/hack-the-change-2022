@@ -5,7 +5,7 @@ import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import Typography from '@mui/material/Typography';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import { IconButton } from '@mui/material';
+import { IconButton, Paper } from '@mui/material';
 
 const style = {
 	position: 'absolute',
@@ -13,11 +13,11 @@ const style = {
 	left: '50%',
 	transform: 'translate(-50%, -50%)',
 	width: '800px',
-	height: '500px',
+	height: '400px',
 	bgcolor: 'background.paper',
 	boxShadow: 24,
 	borderRadius: 4,
-	p: 4,
+	padding: '20px'
 };
 
 export default function TransitionsModal({ children, openModel, setOpenModel }) {
@@ -26,9 +26,9 @@ export default function TransitionsModal({ children, openModel, setOpenModel }) 
 	const handleClose = () => setOpenModel(false);
 
 	return (
-		<div>
+		<Box>
 			<IconButton onClick={handleOpen} size="large">
-				<AddCircleOutlineIcon />
+				<AddCircleOutlineIcon fontSize='large' />
 			</IconButton>
 			<Modal
 				aria-labelledby="transition-modal-title"
@@ -47,6 +47,6 @@ export default function TransitionsModal({ children, openModel, setOpenModel }) 
 					</Box>
 				</Fade>
 			</Modal>
-		</div>
+		</Box >
 	);
 }

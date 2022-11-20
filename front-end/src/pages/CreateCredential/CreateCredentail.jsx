@@ -19,6 +19,7 @@ const CreateCredentail = () => {
 	const [openModel, setOpenModel] = React.useState(false);
 	const [pdfUrl, setPdfUrl] = useState(undefined);
 	const [file, setFile] = useState(undefined);
+	const [finishedUplod, setFinishedUplod] = useState(false)
 
 
 	const storage = getStorage();
@@ -35,6 +36,7 @@ const CreateCredentail = () => {
 	const { values, handleChange, setFieldValue } = formik
 
 	const onUploadFile = async (files) => {
+		setFinishedUplod(true)
 		console.log(files[0])
 		setFile(files[0])
 		const storageRef = ref(storage, files[0].name);
@@ -44,7 +46,7 @@ const CreateCredentail = () => {
 
 		await getDownloadURL(storageRef).then((url) => {
 			setPdfUrl(url);
-			
+
 		}).catch((error) => {
 			// Handle any errors
 		});
@@ -52,71 +54,56 @@ const CreateCredentail = () => {
 	}
 
 	return (
-    <FormikProvider value={formik}>
-      <TransitionsModal openModel={openModel} setOpenModel={setOpenModel}>
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Grid container rowGap={4}>
-            <Grid item xs={12}>
-              <FormControl fullWidth>
-                <InputLabel id="credentialName">Credential Name</InputLabel>
-                <Select
-                  labelId="credentialName"
-                  key="credentialName"
-                  label="Credential Name"
-                  value={values.credentialName}
-                  onChange={(e) =>
-                    setFieldValue("credentialName", e.target.value)
-                  }
-                >
-                  <MenuItem value={"IELTS"}>IELTS</MenuItem>
-                  <MenuItem value={"TOFEL"}>TOFEL</MenuItem>
-                  <MenuItem value={"TRANSCRIPT"}>Transcript</MenuItem>
-                  <MenuItem value={"DIPLOMA"}>Diploma</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-            <Grid
-              item
-              xs={12}
-              sx={{ border: "1px dashed grey", borderRadius: "10px" }}
-            >
-              <Box sx={{ flexDirection: "column" }}>
-                <Dropzone onDrop={onUploadFile}>
-                  {({ getRootProps, getInputProps }) => (
-                    <>
-                      <section>
-                        <div {...getRootProps()}>
-                          <input {...getInputProps()} />
-                          <Box sx={{ position: "absolute", left: "50%" }}>
-                            Drag 'n' drop some files here, or click to select
-                            files
-                          </Box>
-                        </div>
-                      </section>
-                      <Box>
-                        <ViewPdf fileData={file} />
-                      </Box>
-                    </>
-                  )}
-                </Dropzone>
-              </Box>
-            </Grid>
-            <Grid item xs={12}>
-              <Button variant="outlined" onClick={formik.submitForm}>
-                Submit
-              </Button>
-            </Grid>
-          </Grid>
-        </Box>
-      </TransitionsModal>
-    </FormikProvider>
-  );
+		<FormikProvider value={formik}>
+			<TransitionsModal>
+				<Box sx={{ display: "flex", alignItems: "center", justifyContent: "center" }} >
+					<Grid container >
+						<Grid item xs={12} >
+							<FormControl fullWidth>
+								<InputLabel id="credentialName">Credential Name</InputLabel>
+								<Select
+									labelId="credentialName"
+									key="credentialName"
+									label="Credential Name"
+									value={values.credentialName}
+									onChange={(e) => setFieldValue('credentialName', e.target.value)}
+								>
+									<MenuItem value={"IELTS"}>IELTS</MenuItem>
+									<MenuItem value={"TOFEL"}>TOFEL</MenuItem>
+									<MenuItem value={"TRANSCRIPT"}>Transcript</MenuItem>
+									<MenuItem value={"DIPLOMA"}>Diploma</MenuItem>
+								</Select>
+							</FormControl>
+						</Grid>
+						<Grid item xs={12} sx={{ border: '1px dashed grey', borderRadius: '10px', padding: '30px', marginY: '16px' }}>
+							<Box sx={{ display: 'relative', flexDirection: "column", }}>
+								<Dropzone onDrop={onUploadFile} >
+									{({ getRootProps, getInputProps }) => (
+										<section>
+											<div {...getRootProps()}>
+												<input {...getInputProps()} />
+												{!finishedUplod && <Box sx={{ position: 'absolute', left: '5%', top: '20%', padding: "100px 200px" }}>Drag 'n' drop some files here, or click to select files</Box>}
+											</div>
+										</section>
+									)}
+								</Dropzone>
+								<Box>
+									<ViewPdf fileData={file} />
+								</Box>
+							</Box>
+							{/* <UploadButtons /> */}
+						</Grid>
+
+						<Grid item xs={10}>
+						</Grid>
+						<Grid item xs={1} sx={{ marginLeft: '40px', marginRight: '4px' }}>
+							<Button variant='contained' onClick={formik.submitForm}>Submit</Button>
+						</Grid>
+					</Grid>
+				</Box>
+			</TransitionsModal>
+		</FormikProvider>
+	)
 }
 
 export default CreateCredentail
