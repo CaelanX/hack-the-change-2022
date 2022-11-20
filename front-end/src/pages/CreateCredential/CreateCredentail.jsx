@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import UnstyledInput from './Components/Input'
 import Grid from '@mui/material/Grid';
 import { Button, FormControl, InputLabel, MenuItem, Modal, Select, TextField } from '@mui/material';
+import ViewPdf from './Components/ViewPdf'
 
 import { FormikProvider, useFormik } from 'formik'
 import UploadButtons from './Components/UploadButton';
@@ -13,14 +14,14 @@ import TransitionsModal from './Components/ModalWrapper';
 import Dropzone from 'react-dropzone'
 
 const CreateCredentail = () => {
-	const [file, setFile] = useState(null);
 	const credentialRef = collection(db, 'documents')
-	const [pdfUrl, setPdfUrl] = useState(null);
+	const [pdfUrl, setPdfUrl] = useState(undefined);
+	const [file, setFile] = useState(undefined);
 
 
 	// Create a root reference
 	const storage = getStorage();
-	const imageRef = ref(storage, 'sample.pdf');
+	// const imageRef = ref(storage, file);
 
 	const formik = useFormik({
 		initialValues: {
@@ -32,19 +33,31 @@ const CreateCredentail = () => {
 
 	})
 
-	useEffect(() => {
-		getDownloadURL(imageRef).then((url) => {
-			// Insert url into an <img> tag to "download"
+	const { values, handleChange, setFieldValue } = formik
+
+	// useEffect(() => {
+	// 	getDownloadURL(imageRef).then((url) => {
+	// 		// Insert url into an <img> tag to "download"
+	// 		setPdfUrl(url);
+	// 	}).catch((error) => {
+	// 		// Handle any errors
+	// 	});
+	// }, [])
+
+	const onUploadFile = async (files) => {
+		console.log(files[0])
+		setFile(files[0])
+		const storageRef = ref(storage, files[0].name);
+		console.log(storageRef)
+
+		await uploadBytes(storageRef, files[0])
+
+		await getDownloadURL(storageRef).then((url) => {
 			setPdfUrl(url);
 		}).catch((error) => {
 			// Handle any errors
 		});
-	}, [])
 
-	const onUploadFile = async (e) => {
-		const file = e.target.files[0];
-		const storageRef = ref(storage, file.name);
-		await uploadBytes(storageRef, file);
 	}
 
 	return (
@@ -54,13 +67,13 @@ const CreateCredentail = () => {
 					<Grid container >
 						<Grid item xs={12} >
 							<FormControl fullWidth>
-								<InputLabel id="demo-simple-select-label">Credential Name</InputLabel>
+								<InputLabel id="credentialName">Credential Name</InputLabel>
 								<Select
-									labelId="demo-simple-select-label"
-									id="demo-simple-select"
-									label="Age"
-									value={"IELTS"}
-									onChange={formik.handleChange}
+									labelId="credentialName"
+									key="credentialName"
+									label="Credential Name"
+									value={values.credentialName}
+									onChange={(e) => setFieldValue('credentialName', e.target.value)}
 								>
 									<MenuItem value={"IELTS"}>IELTS</MenuItem>
 									<MenuItem value={"TOFEL"}>TOFEL</MenuItem>
@@ -70,7 +83,7 @@ const CreateCredentail = () => {
 							</FormControl>
 						</Grid>
 						<Grid item xs={12}>
-							<Dropzone onDrop={onUploadFile}>
+							<Dropzone onDrop={onUploadFile} >
 								{({ getRootProps, getInputProps }) => (
 									<section>
 										<div {...getRootProps()}>
@@ -80,13 +93,14 @@ const CreateCredentail = () => {
 									</section>
 								)}
 							</Dropzone>
-							<UploadButtons />
+							{/* <UploadButtons /> */}
 						</Grid>
 						<Grid item xs={12}>
 
 							<Button variant='outlined' onClick={formik.submitForm}>Submit</Button>
 						</Grid>
 					</Grid>
+					<ViewPdf file={file} />
 				</Box>
 			</TransitionsModal>
 		</FormikProvider>

@@ -6,6 +6,7 @@ import {
   getDocs,
 } from "firebase/firestore";
 import { async } from "@firebase/util";
+import CreateCredentail from "../../CreateCredential/CreateCredentail";
 
 const columns = [
   { field: "name", headerName: "Name", width: 130 },
@@ -19,7 +20,7 @@ const columns = [
     field: "isverified",
     headerName: "Status",
     width: 130,
-  },{
+  }, {
     headerName: "actions"
   }
 ];
@@ -43,13 +44,13 @@ export default function Dashboard() {
 
   const documentCollectionRef = collection(db, "documents");
 
-  useEffect(() => { 
+  useEffect(() => {
     fetchData()
-  },[])
+  }, [])
 
   const fetchData = async () => {
-     const data = await getDocs(documentCollectionRef);
-     setDocuments(data.docs.map((doc) => ({...doc.data(), id: doc.id})));  
+    const data = await getDocs(documentCollectionRef);
+    setDocuments(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
   }
 
   console.log(documents)
@@ -68,6 +69,7 @@ export default function Dashboard() {
         disableExtendRowFullWidth={false}
         hideFooterPagination={true}
       />
+      <CreateCredentail />
     </div>
   );
 }
