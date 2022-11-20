@@ -9,6 +9,7 @@ import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth'
 
 function RegisterCard(){
     const auth = getAuth();
+    //Lakshay Smells
     const onRegister = async (values) => {
         createUserWithEmailAndPassword(auth, values.email, values.password)
             .then((userCredential) => {
