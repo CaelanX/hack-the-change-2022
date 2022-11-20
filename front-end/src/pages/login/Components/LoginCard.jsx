@@ -12,6 +12,7 @@ function LoginCard() {
     const [showPassword, setShowPassword] = useState(false)
     const navigator = useNavigate();
     const auth = getAuth();
+    console.log(auth)
 
     const validationSchema = yup.object({
         email: yup
