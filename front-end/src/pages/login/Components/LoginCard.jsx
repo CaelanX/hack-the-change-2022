@@ -4,11 +4,12 @@ import {Visibility, Person, VisibilityOff} from "@mui/icons-material";
 import * as yup from'yup';
 import {useFormik} from "formik";
 import {getAuth, signInWithEmailAndPassword} from 'firebase/auth'
+import { useNavigator} from 'react-router-dom'
 
 
 function LoginCard() {
     const [showPassword, setShowPassword] = useState(false)
-
+    const navigator = useNavigator();
     const auth = getAuth();
 
     const validationSchema = yup.object({
@@ -29,7 +30,9 @@ function LoginCard() {
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
-            signInWithEmailAndPassword(auth, values.email, values.password).then()
+            signInWithEmailAndPassword(auth, values.email, values.password).then(
+                navigator("/homepage")
+            )
 
         }
     })
