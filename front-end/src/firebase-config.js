@@ -11,7 +11,8 @@ const firebaseConfig = {
 	storageBucket: "unicred2-e24eb.appspot.com",
 	messagingSenderId: "827325065548",
 	appId: process.env.REACT_APP_APP_ID,
-	measurementId: "G-0TTS6D2EZ1"
+	measurementId: "G-0TTS6D2EZ1",
+	// storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
 };
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

@@ -10,8 +10,27 @@ import {
   doc,
 } from "firebase/firestore";
 import CreateCredentail from "./pages/CreateCredential/CreateCredentail";
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
+
 
 function App() {
+
+  const [image, setImage] = useState(null);
+
+  // Create a reference to the file we want to download
+  const storage = getStorage();
+  const starsRef = ref(storage, 'sample.pdf');
+
+  // Get the download URL
+  useEffect(() => {
+    getDownloadURL(starsRef).then((url) => {
+      // Insert url into an <img> tag to "download"
+      setImage(url);
+    }).catch((error) => {
+      // Handle any errors
+    });
+  }, [])
+
   const [newName, setNewName] = useState("");
   const [newAge, setNewAge] = useState(0);
 
@@ -51,6 +70,8 @@ function App() {
           setNewName(event.target.value);
         }}
       />
+      {console.log(image)}
+
       <input
         type="number"
         placeholder="Age..."
