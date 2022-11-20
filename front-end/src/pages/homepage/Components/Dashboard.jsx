@@ -19,8 +19,6 @@ const columns = [
     field: "isverified",
     headerName: "Status",
     width: 130,
-  },{
-    headerName: "actions"
   }
 ];
 
