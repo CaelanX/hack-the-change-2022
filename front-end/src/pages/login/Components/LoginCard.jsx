@@ -19,7 +19,7 @@ function LoginCard() {
             .required('Email is required'),
         password: yup
             .string('Enter your password')
-            .min(9, 'Password must be 8 characters or longer')
+            .min(8, 'Password must be 8 characters or longer')
             .required('Password is required')
 
     })
@@ -30,8 +30,10 @@ function LoginCard() {
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
-            signInWithEmailAndPassword(auth, values.email, values.password).then((userCredential) => {
+            signInWithEmailAndPassword(auth, values.email, values.password)
+                .then((userCredential) => {
                 navigator("/homepage")
+
             }
             )
 
