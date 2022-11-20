@@ -28,7 +28,7 @@ const CreateCredentail = () => {
 			credentialName: 'IELTS',
 		},
 		onSubmit: values => {
-			addDoc(credentialRef, { ...values, pdfUrl })
+			addDoc(credentialRef, { ...values, pdfUrl, verfiedat: '', isverified: new Date() })
 		}
 
 	})
@@ -82,17 +82,22 @@ const CreateCredentail = () => {
 								</Select>
 							</FormControl>
 						</Grid>
-						<Grid item xs={12}>
-							<Dropzone onDrop={onUploadFile} >
-								{({ getRootProps, getInputProps }) => (
-									<section>
-										<div {...getRootProps()}>
-											<input {...getInputProps()} />
-											<p>Drag 'n' drop some files here, or click to select files</p>
-										</div>
-									</section>
-								)}
-							</Dropzone>
+						<Grid item xs={12} sx={{ border: '1px dashed grey', borderRadius: '10px' }}>
+							<Box sx={{ display: 'relative', flexDirection: "column", }}>
+								<Dropzone onDrop={onUploadFile} >
+									{({ getRootProps, getInputProps }) => (
+										<section>
+											<div {...getRootProps()}>
+												<input {...getInputProps()} />
+												<Box sx={{ position: 'absolute', left: '50%' }}>Drag 'n' drop some files here, or click to select files</Box>
+											</div>
+										</section>
+									)}
+								</Dropzone>
+								<Box>
+									<ViewPdf fileData={file} />
+								</Box>
+							</Box>
 							{/* <UploadButtons /> */}
 						</Grid>
 						<Grid item xs={12}>
@@ -100,7 +105,6 @@ const CreateCredentail = () => {
 							<Button variant='outlined' onClick={formik.submitForm}>Submit</Button>
 						</Grid>
 					</Grid>
-					<ViewPdf file={file} />
 				</Box>
 			</TransitionsModal>
 		</FormikProvider>
