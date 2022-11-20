@@ -7,6 +7,7 @@ import {
 } from "firebase/firestore";
 import { async } from "@firebase/util";
 import CreateCredential from "../../CreateCredential/CreateCredential";
+import { Box } from "@mui/material";
 
 const columns = [
   { field: "id", headerName: "id", width: 130 },
@@ -58,7 +59,7 @@ export default function Dashboard() {
   console.log(documents)
 
   return (
-    <div style={{ height: "100%", width: "50%", margin: "auto" }}>
+    <div style={{ height: "100%", width: "50%", margin: "auto", position: 'relative' }}>
       <DataGrid
         style={{ padding: "10px 25px" }}
         rows={documents}
@@ -71,7 +72,9 @@ export default function Dashboard() {
         disableExtendRowFullWidth={false}
         hideFooterPagination={true}
       />
-      <CreateCredential />
+      <Box sx={{ position: 'absolute', bottom: 0, right: '-100px' }}>
+        <CreateCredential />
+      </Box>
     </div>
   );
 }

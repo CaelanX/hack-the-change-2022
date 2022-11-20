@@ -29,12 +29,13 @@ export default function Navbar() {
           alignItems: "center",
           textAlign: "center",
           justifyContent: "space-between",
-          padding: "16px 25px",
+          padding: "16px 150px",
           backgroundColor: "#b8b8ff38",
           borderRadius: "10px",
+          marginBottom: "20px",
         }}
       >
-        <Typography sx={{ minWidth: 100 }}>Logo</Typography>
+        <Typography sx={{ minWidth: 100 }}>UniCred</Typography>
         <Tooltip title="Account settings">
           <IconButton
             onClick={handleClick}

@@ -4,8 +4,8 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import Typography from '@mui/material/Typography';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import { IconButton, Paper } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import { Fab, IconButton, Paper } from '@mui/material';
 
 const style = {
 	position: 'absolute',
@@ -27,9 +27,9 @@ export default function TransitionsModal({ children, openModel, setOpenModel }) 
 
 	return (
 		<Box>
-			<IconButton onClick={handleOpen} size="large">
-				<AddCircleOutlineIcon fontSize='large' />
-			</IconButton>
+			<Fab onClick={handleOpen} color='primary'>
+				<AddIcon />
+			</Fab>
 			<Modal
 				aria-labelledby="transition-modal-title"
 				aria-describedby="transition-modal-description"
