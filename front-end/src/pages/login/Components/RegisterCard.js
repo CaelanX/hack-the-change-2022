@@ -11,9 +11,7 @@ import {useNavigate} from "react-router-dom";
 
 const RegisterCard = () => {
     const navigator = useNavigate()
-    const auth = () => {
-        return getAuth();
-    }
+    const auth = getAuth();
 
     const onRegister = async (values) => {
         createUserWithEmailAndPassword(auth, values.email, values.password)
