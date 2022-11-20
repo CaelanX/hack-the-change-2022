@@ -12,7 +12,7 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import TransitionsModal from './Components/ModalWrapper';
 import Dropzone from 'react-dropzone'
 
-const CreateCredentail = () => {
+const CreateCredential = () => {
 	const [file, setFile] = useState(null);
 	const credentialRef = collection(db, 'documents')
 	const [pdfUrl, setPdfUrl] = useState(null);
@@ -93,4 +93,4 @@ const CreateCredentail = () => {
 	)
 }
 
-export default CreateCredentail
+export default CreateCredential
