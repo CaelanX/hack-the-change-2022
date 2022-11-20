@@ -39,14 +39,14 @@ function AuthenticationCard() {
     };
 
     return <div className="login-div">
+        <form onSubmit={formik.handleSubmit}>
         <Stack
-            component="form"
             sx={{
                 width: '25ch',
             }}
-            spacing={2}
-            noValidate
-            autoComplete="off">
+            justifyContent="center"
+            alignItems="center"
+            spacing={2}>
             <FormControl>
                 <InputLabel htmlFor="login-email">Email</InputLabel>
                     <Input id="login-email"
@@ -83,11 +83,9 @@ function AuthenticationCard() {
                     />
             </FormControl>
             </Stack>
-
             <Button className="login-button" variant="outlined">Login</Button>
-            <Button className="login-register-button" variant="contained">Register</Button>
-
-    </div>
+    </form>
+</div>
 
 }
 
