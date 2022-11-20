@@ -53,8 +53,8 @@ function LoginCard() {
             alignItems="center"
             spacing={2}>
             <FormControl>
-                <InputLabel htmlFor="login-email">Email</InputLabel>
-                    <Input id="login-email"
+                <InputLabel htmlFor="email">Email</InputLabel>
+                    <Input id="email"
                         onChange={formik.handleChange}
                         value={formik.values.email}
                         endAdornment={
@@ -66,9 +66,9 @@ function LoginCard() {
             </FormControl>
 
             <FormControl>
-                <InputLabel htmlFor="login-password">Password</InputLabel>
+                <InputLabel htmlFor="password">Password</InputLabel>
                     <Input
-                        id="login-password"
+                        id="password"
                         type={showPassword ? "text" : "password"}
                         onChange={formik.handleChange}
                         endAdornment={
