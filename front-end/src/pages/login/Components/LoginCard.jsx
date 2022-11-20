@@ -7,12 +7,14 @@ import {getAuth, signInWithEmailAndPassword} from 'firebase/auth'
 import { useNavigate} from 'react-router-dom'
 import {red} from '@mui/material/colors'
 
+const auth = () => {
+    return getAuth()
+};
 
 function LoginCard() {
     const [showPassword, setShowPassword] = useState(false)
+
     const navigator = useNavigate();
-    const auth = getAuth();
-    console.log(auth)
 
     const validationSchema = yup.object({
         email: yup
@@ -35,13 +37,10 @@ function LoginCard() {
             signInWithEmailAndPassword(auth, values.email, values.password)
                 .then((userCredential) => {
                 navigator("/homepage")
-
             }
             )
-
         }
     })
-
 
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
