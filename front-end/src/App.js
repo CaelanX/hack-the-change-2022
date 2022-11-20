@@ -10,13 +10,13 @@ import {
   doc,
 } from "firebase/firestore";
 import Homepage from "./pages/homepage";
-import Authentication from "./pages/login/Authentication"
+import LoginCard from "./pages/login/Components/LoginCard";
 
 function App() {
 
   return (
     <div className="App">
-      <Authentication />
+      <LoginCard />
       {/* <Homepage /> */}
     </div>
   );
