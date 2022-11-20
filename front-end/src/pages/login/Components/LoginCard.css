@@ -1,17 +1,15 @@
-.register-page{
+.login-page{
     margin-top: 10ch;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
-.register-title {
+.login-title {
     display: flex;
     font-weight: bold;
 }
 
-.register-title span{
+.login-title span{
     color: darkred;
 }
-
-

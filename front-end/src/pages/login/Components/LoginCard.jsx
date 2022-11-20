@@ -7,6 +7,7 @@ import {getAuth, signInWithEmailAndPassword} from 'firebase/auth'
 import { useNavigate} from 'react-router-dom'
 import {red} from '@mui/material/colors'
 import {Typography} from '@mui/material';
+import "./LoginCard.css"
 
 const auth = getAuth();
 
@@ -54,40 +55,20 @@ function LoginCard() {
     }
 
     return (
-      <div
-        className="login-div"
-        style={{
-        //   border: "2px solid black",
-          width: "30%",
-          height: "30rem",
-          margin: "200px auto",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: "20px 20px",
-          borderRadius: "20px",
-          backgroundColor: "#f0f8fff7",
-        }}
-      >
-        <Typography className="authentication-title" variant="h1">
+      <div className="login-page">
+        <Typography className="login-title" variant="h1">
           Uni<span>Creds</span>
         </Typography>
-        <form onSubmit={formik.handleSubmit}>
+        <form className="login-form" onSubmit={formik.handleSubmit}>
           <Stack
             sx={{
               width: "25ch",
-            }}
-            style={{
-              height: "20rem",
-              display: "flex",
-              justifyContent: "center",
             }}
             justifyContent="center"
             alignItems="center"
             spacing={2}
           >
-            <FormControl>
+            <FormControl fullWidth={true}>
               <InputLabel htmlFor="email">Email</InputLabel>
               <Input
                 id="email"
@@ -104,7 +85,7 @@ function LoginCard() {
               />
             </FormControl>
 
-            <FormControl>
+            <FormControl fullWidth={true}>
               <InputLabel htmlFor="password">Password</InputLabel>
               <Input
                 id="password"
@@ -125,28 +106,24 @@ function LoginCard() {
                 }
               />
             </FormControl>
+              <Stack spacing={2} direction={"row"}>
+                  <Button sx={{backgroundColor: "darkred"}}
+                  type="submit"
+                  className="login-button"
+                  variant="contained"
+              >
+                  Login
+              </Button>
+              <a
+                  onClick={handleClick}
+              >
+                  <Typography style={{ color: "blue" }}>Sign up</Typography>
+              </a>{" "}
+              </Stack>
           </Stack>
-          <Button
-            style={{ position: "relative", bottom: "50px", left: "80px" }}
-            type="submit"
-            className="login-button"
-            variant="outlined"
-          >
-            Login
-          </Button>
+
         </form>
-        <a
-          style={{
-            position: "relative",
-            bottom: "20px",
-            left: "150px",
-            cursor: "pointer",
-          }}
-          variant={"contained"}
-          onClick={handleClick}
-        >
-          <Typography style={{ color: "blue" }}>Sign up</Typography>
-        </a>{" "}
+
       </div>
     );
 
