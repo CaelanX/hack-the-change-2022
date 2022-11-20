@@ -28,12 +28,16 @@ const CreateCredential = () => {
 			name: 'IELTS',
 		},
 		onSubmit: values => {
-			addDoc(credentialRef, { ...values, pdfUrl, verifiedAt: new Date(), isVerified: true })
+			addDoc(credentialRef, { ...values, pdfUrl, verifiedAt: new Date(), isVerified: false })
 			setOpenModel(false);
+			resetForm()
+			setTimeout(() => {
+				window.location.reload()
+			}, 1000)
 		}
 	})
 
-	const { values, handleChange, setFieldValue } = formik
+	const { values, handleChange, setFieldValue, resetForm } = formik
 
 	const onUploadFile = async (files) => {
 		setFinishedUplod(true)
