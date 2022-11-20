@@ -5,7 +5,6 @@ import {
   collection,
   getDocs,
 } from "firebase/firestore";
-import { async } from "@firebase/util";
 
 const columns = [
   { field: "name", headerName: "Name", width: 130 },
