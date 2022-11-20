@@ -11,10 +11,15 @@ import Tooltip from "@mui/material/Tooltip";
 import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
-import logo from '../../../img/logo.png'
+import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 export default function Navbar() {
+
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const navigator = useNavigate();
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -22,6 +27,12 @@ export default function Navbar() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const handleLogOut = () => {
+    toast.success("Logging out")
+    setTimeout(() => {
+      navigator("/")
+    }, 3000);
+  }
   return (
     <React.Fragment>
       <Box
@@ -87,13 +98,23 @@ export default function Navbar() {
         <MenuItem>
           <Avatar /> My Account
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={handleLogOut}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
           Logout
         </MenuItem>
       </Menu>
+      <ToastContainer
+        position="top-right"
+        autoClose={2500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        theme="light"
+      />
     </React.Fragment>
   );
 }
