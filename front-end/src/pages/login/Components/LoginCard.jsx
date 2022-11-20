@@ -7,11 +7,11 @@ import {getAuth, signInWithEmailAndPassword} from 'firebase/auth'
 import { useNavigate} from 'react-router-dom'
 import {red} from '@mui/material/colors'
 import {Typography} from '@mui/material';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const auth = () => {
-    return getAuth()
-};
 
+const auth = getAuth();
 
 function LoginCard() {
     const [showPassword, setShowPassword] = useState(false)
@@ -27,7 +27,6 @@ function LoginCard() {
             .string('Enter your password')
             .min(8, 'Password must be 8 characters or longer')
             .required('Password is required')
-
     })
     const formik = useFormik({
         initialValues: {
@@ -38,7 +37,10 @@ function LoginCard() {
         onSubmit: (values) => {
             signInWithEmailAndPassword(auth, values.email, values.password)
                 .then((userCredential) => {
-                navigator("/homepage")
+               toast.success("Loggin In");
+               setTimeout(() => {
+                  navigator("/homepage")
+               }, 3000);
             }
             )
         }
@@ -68,7 +70,7 @@ function LoginCard() {
           justifyContent: "space-between",
           alignItems: "center",
           padding: "20px 20px",
-          backgroundColor: "#00000076;",
+          backgroundColor: "#00000076",
         }}
       >
         <Typography className="authentication-title" variant="h1">
@@ -147,7 +149,17 @@ function LoginCard() {
           onClick={handleClick}
         >
           <Typography style={{ color: "blue" }}>Sign up</Typography>
-        </a>{" "}
+        </a>
+        <ToastContainer
+          position="top-right"
+          autoClose={2500}
+          hideProgressBar={false}
+          newestOnTop={false}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          theme="light"
+        />
       </div>
     );
 
