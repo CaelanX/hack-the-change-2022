@@ -8,7 +8,10 @@ import {collection, doc, setDoc} from "firebase/firestore";
 import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth'
 
 const RegisterCard = () => {
-    const auth = getAuth();
+    
+    const auth = () => {
+        return getAuth();
+    }
 
     const onRegister = async (values) => {
         createUserWithEmailAndPassword(auth, values.email, values.password)
@@ -17,12 +20,9 @@ const RegisterCard = () => {
                     const user = userCredential.user
                 setDoc(doc(db, "users", values.email), values)
                 console.log(userCredential)
-
                 }
             )
-
     }
-
 
     const validationSchema = yup.object({
         name: yup.object({
