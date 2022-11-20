@@ -6,7 +6,7 @@ import {useFormik} from "formik";
 import {getAuth, signInWithEmailAndPassword} from 'firebase/auth'
 
 
-function AuthenticationCard() {
+function LoginCard() {
     const [showPassword, setShowPassword] = useState(false)
 
     const auth = getAuth();
@@ -94,4 +94,4 @@ function AuthenticationCard() {
 
 }
 
-export default AuthenticationCard;
+export default LoginCard;

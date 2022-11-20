@@ -1,14 +1,30 @@
 import React from 'react'
 import {useFormik} from 'formik'
 import * as yup from 'yup'
+import {db} from '../../../../src/firebase-config'
 import {FormControl, Input, InputAdornment, InputLabel, Stack} from "@mui/material";
 import {Mail, Person} from "@mui/icons-material";
-import {ref, set, getDatabase} from "firebase/database";
+import { doc, setDoc } from "firebase/firestore";
 import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth'
 
 function RegisterCard(){
     const auth = getAuth();
-    const db = getDatabase();
+    const onRegister = async (values) => {
+        createUserWithEmailAndPassword(auth, values.email, values.password)
+            .then((userCredential) => {
+                    // const user = userCredential.user
+                    // db.collection("users").doc(values.email).set(values)
+                    //     .then(() => {
+                    //
+                    //     })
+                console.log(userCredential)
+
+                }
+            )
+
+    }
+
+
     const validationSchema = yup.object({
         name: yup.object({
             first: yup
@@ -64,17 +80,7 @@ function RegisterCard(){
 
         },
         validationSchema: validationSchema,
-        onSubmit: (values) => {
-
-            createUserWithEmailAndPassword(auth, values.email, values.password)
-                .then((userCredential) => {
-                        const user = userCredential.user
-                        set(ref(db, 'users/' + auth.currentUser.uid), values)
-
-                    }
-                )
-
-        },
+        onSubmit: (values) => {onRegister(values)},
     });
 
     return <div>

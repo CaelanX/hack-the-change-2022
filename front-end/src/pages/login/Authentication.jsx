@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import AuthenticationCard from "./Components/AuthenticationCard";
+import LoginCard from "./Components/LoginCard";
 import RegisterCard from "./Components/RegisterCard";
 import {Button, Typography} from "@mui/material";
 
@@ -11,7 +11,7 @@ function Authentication() {
 
   return <div className="authentication-page">
     <Typography className='authentication-title' variant='h1' >Uni<span>Creds</span></Typography>
-    {registration ? <RegisterCard/> : <AuthenticationCard/>}
+    {registration ? <RegisterCard/> : <LoginCard/>}
     {registration ? <></> :
     <Button variant={'contained'} onClick={onClick}>Register</Button> }
   </div>
