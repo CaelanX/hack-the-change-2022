@@ -1,23 +1,21 @@
 import React from 'react'
-import {useFormik} from 'formik'
+import {FormikProvider, useFormik} from 'formik'
 import * as yup from 'yup'
-import {db} from '../../../../src/firebase-config'
-import {FormControl, Input, InputAdornment, InputLabel, Stack} from "@mui/material";
+import {db} from '../../../firebase-config'
+import {Button, FormControl, Input, InputAdornment, InputLabel, Stack} from "@mui/material";
 import {Mail, Person} from "@mui/icons-material";
-import { doc, setDoc } from "firebase/firestore";
+import {collection, doc, setDoc} from "firebase/firestore";
 import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth'
 
-function RegisterCard(){
+const RegisterCard = () => {
     const auth = getAuth();
-    //Lakshay Smells
+
     const onRegister = async (values) => {
         createUserWithEmailAndPassword(auth, values.email, values.password)
             .then((userCredential) => {
-                    // const user = userCredential.user
-                    // db.collection("users").doc(values.email).set(values)
-                    //     .then(() => {
-                    //
-                    //     })
+                    console.log("created");
+                    const user = userCredential.user
+                setDoc(doc(db, "users", values.email), values)
                 console.log(userCredential)
 
                 }
@@ -62,7 +60,6 @@ function RegisterCard(){
             .required('Password is required'),
 
     });
-
     const formik = useFormik({
         initialValues: {
             name: {
@@ -77,88 +74,93 @@ function RegisterCard(){
                 country: "",
                 postalCode: "",
             },
-            password: ""
+            password: "",
 
         },
-        validationSchema: validationSchema,
-        onSubmit: (values) => {onRegister(values)},
+        // validationSchema: validationSchema,
+        onSubmit:(values) => {onRegister(values)},
     });
 
     return <div>
-        <form onSubmit={formik.handleSubmit}>
+        <form >
+            <FormikProvider value={formik}>
             <Stack sx={{
-                       width: '25ch',
+                       width: '50ch',
                    }}
                    justifyContent="center"
                    alignItems="center"
                    spacing={2}>
 
                 <FormControl>
-                    <InputLabel htmlFor="register-firstName">First Name</InputLabel>
-                    <Input id="register-firstName"
+                    <InputLabel htmlFor="name.first">First Name</InputLabel>
+                    <Input id="name.first"
+                           type="text"
                            onChange={formik.handleChange}
                            value={formik.values.name.first}
                     />
                 </FormControl>
 
                 <FormControl>
-                    <InputLabel htmlFor="register-lastName">Last Name</InputLabel>
-                    <Input id="register-lastName"
+                    <InputLabel htmlFor="name.last">Last Name</InputLabel>
+                    <Input id="name.last"
+                           type="text"
                            onChange={formik.handleChange}
                            value={formik.values.name.last}
                     />
                 </FormControl>
 
                 <FormControl>
-                <InputLabel htmlFor="register-email">Email</InputLabel>
-                <Input id="register-email"
+                <InputLabel htmlFor="email">Email</InputLabel>
+                <Input id="email"
                        onChange={formik.handleChange}
                        value={formik.values.email}
-                       endAdornment={
-                           <InputAdornment position="end">
-                               <Mail/>
-                           </InputAdornment>
-                       }
+                       type="text"
                 />
                 </FormControl>
                 <FormControl>
-                    <InputLabel htmlFor="register-street">Street Address</InputLabel>
-                    <Input id="register-street"
+                    <InputLabel htmlFor="address.street">Street Address</InputLabel>
+                    <Input id="address.street"
+                           type="text"
                            onChange={formik.handleChange}
                            value={formik.values.address.street}
                     />
                 </FormControl>
                 <FormControl>
-                    <InputLabel htmlFor="register-city">City</InputLabel>
-                    <Input id="register-city"
+                    <InputLabel htmlFor="address.city">City</InputLabel>
+                    <Input id="address.city"
+                           type="text"
                            onChange={formik.handleChange}
                            value={formik.values.address.city}
                     />
                 </FormControl>
                 <FormControl>
-                    <InputLabel htmlFor="register-state">State, Province, or Territory</InputLabel>
-                    <Input id="register-state"
+                    <InputLabel htmlFor="address.state">State, Province, or Territory</InputLabel>
+                    <Input id="address.state"
+                           type="text"
                            onChange={formik.handleChange}
                            value={formik.values.address.state}
                     />
                 </FormControl>
                 <FormControl>
-                    <InputLabel htmlFor="register-country">Country</InputLabel>
-                    <Input id="register-street"
+                    <InputLabel htmlFor="address.country">Country</InputLabel>
+                    <Input id="address.country"
+                           type="text"
                            onChange={formik.handleChange}
                            value={formik.values.address.country}
                     />
                 </FormControl>
                 <FormControl>
-                    <InputLabel htmlFor="register-password">Password</InputLabel>
-                    <Input id="register-password"
+                    <InputLabel htmlFor="password">Password</InputLabel>
+                    <Input id="password"
+                           type="password"
                            onChange={formik.handleChange}
-                           value={formik.values.address.password}
+                           value={formik.values.password}
                     />
                 </FormControl>
+                <Button form="register-form" onClick={formik.submitForm} variant='contained'>Register</Button>
 
             </Stack>
-
+            </FormikProvider>
         </form>
 
 
