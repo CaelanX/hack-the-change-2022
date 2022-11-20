@@ -13,7 +13,7 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import TransitionsModal from './Components/ModalWrapper';
 import Dropzone from 'react-dropzone'
 
-const CreateCredentail = () => {
+const CreateCredential = () => {
 	const credentialRef = collection(db, 'documents')
 
 	const [openModel, setOpenModel] = React.useState(false);
@@ -106,4 +106,4 @@ const CreateCredentail = () => {
 	)
 }
 
-export default CreateCredentail
+export default CreateCredential
