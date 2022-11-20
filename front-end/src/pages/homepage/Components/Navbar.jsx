@@ -11,6 +11,7 @@ import Tooltip from "@mui/material/Tooltip";
 import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
+import logo from '../../../img/logo.png'
 
 export default function Navbar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -30,12 +31,11 @@ export default function Navbar() {
           textAlign: "center",
           justifyContent: "space-between",
           padding: "16px 150px",
-          backgroundColor: "#b8b8ff38",
-          borderRadius: "10px",
+          backgroundColor: "#0e6da2",
           marginBottom: "20px",
         }}
       >
-        <Typography sx={{ minWidth: 100 }}>UniCred</Typography>
+        <img src={logo} alt='logo' width='120px' height='70px' style={{ objectFit: 'contain' }} />
         <Tooltip title="Account settings">
           <IconButton
             onClick={handleClick}

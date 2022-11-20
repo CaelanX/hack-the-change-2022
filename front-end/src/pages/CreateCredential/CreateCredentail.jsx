@@ -14,44 +14,44 @@ import TransitionsModal from './Components/ModalWrapper';
 import Dropzone from 'react-dropzone'
 
 const CreateCredentail = () => {
-	const credentialRef = collection(db, 'documents')
+  const credentialRef = collection(db, 'documents')
 
-	const [openModel, setOpenModel] = React.useState(false);
-	const [pdfUrl, setPdfUrl] = useState(undefined);
-	const [file, setFile] = useState(undefined);
+  const [openModel, setOpenModel] = React.useState(false);
+  const [pdfUrl, setPdfUrl] = useState(undefined);
+  const [file, setFile] = useState(undefined);
 
 
-	const storage = getStorage();
-	const formik = useFormik({
-		initialValues: {
-			credentialName: 'IELTS',
-		},
-		onSubmit: values => {
-			addDoc(credentialRef, { ...values, pdfUrl, verfiedat: '', isverified: new Date() })
-			setOpenModel(false);
-		}
-	})
+  const storage = getStorage();
+  const formik = useFormik({
+    initialValues: {
+      name: 'IELTS',
+    },
+    onSubmit: values => {
+      addDoc(credentialRef, { ...values, pdfUrl, verifiedAt: new Date(), isVerified: true })
+      setOpenModel(false);
+    }
+  })
 
-	const { values, handleChange, setFieldValue } = formik
+  const { values, handleChange, setFieldValue } = formik
 
-	const onUploadFile = async (files) => {
-		console.log(files[0])
-		setFile(files[0])
-		const storageRef = ref(storage, files[0].name);
-		console.log(storageRef)
+  const onUploadFile = async (files) => {
+    console.log(files[0])
+    setFile(files[0])
+    const storageRef = ref(storage, files[0].name);
+    console.log(storageRef)
 
-		await uploadBytes(storageRef, files[0])
+    await uploadBytes(storageRef, files[0])
 
-		await getDownloadURL(storageRef).then((url) => {
-			setPdfUrl(url);
-			
-		}).catch((error) => {
-			// Handle any errors
-		});
+    await getDownloadURL(storageRef).then((url) => {
+      setPdfUrl(url);
 
-	}
+    }).catch((error) => {
+      // Handle any errors
+    });
 
-	return (
+  }
+
+  return (
     <FormikProvider value={formik}>
       <TransitionsModal openModel={openModel} setOpenModel={setOpenModel}>
         <Box
@@ -64,14 +64,14 @@ const CreateCredentail = () => {
           <Grid container rowGap={4}>
             <Grid item xs={12}>
               <FormControl fullWidth>
-                <InputLabel id="credentialName">Credential Name</InputLabel>
+                <InputLabel id="name">Credential Name</InputLabel>
                 <Select
-                  labelId="credentialName"
-                  key="credentialName"
+                  labelId="name"
+                  key="name"
                   label="Credential Name"
-                  value={values.credentialName}
+                  value={values.name}
                   onChange={(e) =>
-                    setFieldValue("credentialName", e.target.value)
+                    setFieldValue("name", e.target.value)
                   }
                 >
                   <MenuItem value={"IELTS"}>IELTS</MenuItem>
@@ -97,9 +97,9 @@ const CreateCredentail = () => {
                             Drag 'n' drop some files here, or click to select
                             files
                           </Box>
-                            <Box>
-                              <ViewPdf fileData={file} />
-                            </Box>
+                          <Box>
+                            <ViewPdf fileData={file} />
+                          </Box>
                         </div>
                       </section>
                     </>

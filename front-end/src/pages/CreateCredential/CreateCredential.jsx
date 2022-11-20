@@ -25,10 +25,10 @@ const CreateCredential = () => {
 	const storage = getStorage();
 	const formik = useFormik({
 		initialValues: {
-			credentialName: 'IELTS',
+			name: 'IELTS',
 		},
 		onSubmit: values => {
-			addDoc(credentialRef, { ...values, pdfUrl, verfiedat: '', isverified: new Date() })
+			addDoc(credentialRef, { ...values, pdfUrl, verifiedAt: new Date(), isVerified: true })
 			setOpenModel(false);
 		}
 	})
@@ -60,13 +60,13 @@ const CreateCredential = () => {
 					<Grid container >
 						<Grid item xs={12} >
 							<FormControl fullWidth>
-								<InputLabel id="credentialName">Credential Name</InputLabel>
+								<InputLabel id="name">Credential Name</InputLabel>
 								<Select
-									labelId="credentialName"
-									key="credentialName"
+									labelId="name"
+									key="name"
 									label="Credential Name"
-									value={values.credentialName}
-									onChange={(e) => setFieldValue('credentialName', e.target.value)}
+									value={values.name}
+									onChange={(e) => setFieldValue('name', e.target.value)}
 								>
 									<MenuItem value={"IELTS"}>IELTS</MenuItem>
 									<MenuItem value={"TOFEL"}>TOFEL</MenuItem>

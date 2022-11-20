@@ -7,7 +7,10 @@ import {
 } from "firebase/firestore";
 import { async } from "@firebase/util";
 import CreateCredential from "../../CreateCredential/CreateCredential";
-import { Box } from "@mui/material";
+import { Box, Chip, Fab } from "@mui/material";
+import ShareIcon from '@mui/icons-material/Share';
+import { useNavigate } from 'react-router-dom'
+
 
 const columns = [
   { field: "id", headerName: "id", width: 130 },
@@ -22,6 +25,10 @@ const columns = [
     field: "isVerified",
     headerName: "Status",
     width: 130,
+    renderCell: (params) => {
+      return params.row.isVerified ? <Chip label="verified" color='success' /> : <Chip label="unverified" color='warning' />
+    }
+
   },
   {
     headerName: "actions",
@@ -44,6 +51,9 @@ const columns = [
 export default function Dashboard() {
 
   const [documents, setDocuments] = useState([]);
+  const [selectionModel, setSelectionModel] = useState([]);
+  const [showShare, setShowShare] = useState(false)
+  const navigator = useNavigate()
 
   const documentCollectionRef = collection(db, "documents");
 
@@ -54,6 +64,19 @@ export default function Dashboard() {
   const fetchData = async () => {
     const data = await getDocs(documentCollectionRef);
     setDocuments(data.docs.map((doc) => ({ ...doc.data(), id: doc.id, pros: doc.id })));
+  }
+
+  useEffect(() => {
+    console.log(selectionModel)
+  }, [selectionModel])
+
+  const handleShare = () => {
+    const selectedId = selectionModel.reduce((acc, curr) => {
+      return acc + curr + ","
+    }, '?docs=')
+    navigator(`/profile` + selectedId)
+
+
   }
 
   console.log(documents)
@@ -71,8 +94,22 @@ export default function Dashboard() {
         density="comfortable"
         disableExtendRowFullWidth={false}
         hideFooterPagination={true}
+        // selectionModel={selectionModel}
+        onSelectionModelChange={(newSelection) => {
+          setShowShare(true)
+          setSelectionModel(newSelection);
+        }}
       />
-      <Box sx={{ position: 'absolute', bottom: 0, right: '-100px' }}>
+      <Box sx={{ position: 'absolute', bottom: '30px', right: '-100px' }}>
+        {showShare && (
+          <Box sx={{ marginBottom: '8px' }}>
+            <Fab onClick={() => {
+              handleShare()
+            }}>
+              <ShareIcon />
+            </Fab>
+          </Box>
+        )}
         <CreateCredential />
       </Box>
     </div>
