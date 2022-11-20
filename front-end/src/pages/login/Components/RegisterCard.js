@@ -3,9 +3,12 @@ import {useFormik} from 'formik'
 import * as yup from 'yup'
 import {FormControl, Input, InputAdornment, InputLabel, Stack} from "@mui/material";
 import {Mail, Person} from "@mui/icons-material";
+import {ref, set, getDatabase} from "firebase/database";
+import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth'
 
 function RegisterCard(){
-
+    const auth = getAuth();
+    const db = getDatabase();
     const validationSchema = yup.object({
         name: yup.object({
             first: yup
@@ -62,6 +65,15 @@ function RegisterCard(){
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
+
+            createUserWithEmailAndPassword(auth, values.email, values.password)
+                .then((userCredential) => {
+                        const user = userCredential.user
+                        set(ref(db, 'users/' + auth.currentUser.uid), values)
+
+                    }
+                )
+
         },
     });
 
