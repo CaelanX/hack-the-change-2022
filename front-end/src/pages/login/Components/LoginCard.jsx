@@ -5,6 +5,7 @@ import * as yup from'yup';
 import {useFormik} from "formik";
 import {getAuth, signInWithEmailAndPassword} from 'firebase/auth'
 import { useNavigate} from 'react-router-dom'
+import {red} from '@mui/material/colors'
 
 
 function LoginCard() {
@@ -63,6 +64,9 @@ function LoginCard() {
                     <Input id="email"
                         onChange={formik.handleChange}
                         value={formik.values.email}
+                        sx={{
+                            color: red[500],
+                        }}
                         endAdornment={
                             <InputAdornment position="end">
                                 <Person/>

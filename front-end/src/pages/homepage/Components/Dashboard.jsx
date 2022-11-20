@@ -6,7 +6,7 @@ import {
   getDocs,
 } from "firebase/firestore";
 import { async } from "@firebase/util";
-import CreateCredentail from "../../CreateCredential/CreateCredentail";
+import CreateCredential from "../../CreateCredential/CreateCredential";
 
 const columns = [
   { field: "name", 
@@ -73,7 +73,7 @@ export default function Dashboard() {
         disableExtendRowFullWidth={false}
         hideFooterPagination={true}
       />
-      <CreateCredentail />
+      <CreateCredential />
     </div>
   );
 }

@@ -15,7 +15,6 @@ root.render(
         <Route path="/" element={<Authentication/>}/>
         <Route path="homepage" element={<Homepage/>}/>
         <Route path="credential" element={<CreateCredential/>}/>
-
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
