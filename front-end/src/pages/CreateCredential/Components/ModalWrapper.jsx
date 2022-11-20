@@ -20,10 +20,10 @@ const style = {
 	p: 4,
 };
 
-export default function TransitionsModal({ children }) {
-	const [open, setOpen] = React.useState(false);
-	const handleOpen = () => setOpen(true);
-	const handleClose = () => setOpen(false);
+export default function TransitionsModal({ children, openModel, setOpenModel }) {
+
+	const handleOpen = () => setOpenModel(true);
+	const handleClose = () => setOpenModel(false);
 
 	return (
 		<div>
@@ -33,7 +33,7 @@ export default function TransitionsModal({ children }) {
 			<Modal
 				aria-labelledby="transition-modal-title"
 				aria-describedby="transition-modal-description"
-				open={open}
+				open={openModel}
 				onClose={handleClose}
 				closeAfterTransition
 				BackdropComponent={Backdrop}
@@ -41,7 +41,7 @@ export default function TransitionsModal({ children }) {
 					timeout: 500,
 				}}
 			>
-				<Fade in={open}>
+				<Fade in={openModel}>
 					<Box sx={style}>
 						{children}
 					</Box>

@@ -9,20 +9,24 @@ import { async } from "@firebase/util";
 import CreateCredentail from "../../CreateCredential/CreateCredentail";
 
 const columns = [
-  { field: "name", headerName: "Name", width: 130 },
+  { field: "name", 
+    headerName: "Name", 
+    width: 130 
+  },
   {
-    field: "verifiedat",
+    field: "verifiedAt",
     headerName: "Issued On",
     type: "number",
+    width: 150,
+  },
+  {
+    field: "isVerified",
+    headerName: "Status",
     width: 130,
   },
   {
-    field: "isverified",
-    headerName: "Status",
-    width: 130,
-  }, {
-    headerName: "actions"
-  }
+    headerName: "actions",
+  },
 ];
 
 // const rows = [

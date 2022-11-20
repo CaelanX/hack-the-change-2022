@@ -15,13 +15,13 @@ import Dropzone from 'react-dropzone'
 
 const CreateCredentail = () => {
 	const credentialRef = collection(db, 'documents')
+
+	const [openModel, setOpenModel] = React.useState(false);
 	const [pdfUrl, setPdfUrl] = useState(undefined);
 	const [file, setFile] = useState(undefined);
 
 
-	// Create a root reference
 	const storage = getStorage();
-	// const imageRef = ref(storage, file);
 
 	const formik = useFormik({
 		initialValues: {
@@ -29,6 +29,7 @@ const CreateCredentail = () => {
 		},
 		onSubmit: values => {
 			addDoc(credentialRef, { ...values, pdfUrl, verfiedat: '', isverified: new Date() })
+			setOpenModel(false);
 		}
 	})
 
@@ -44,6 +45,7 @@ const CreateCredentail = () => {
 
 		await getDownloadURL(storageRef).then((url) => {
 			setPdfUrl(url);
+			
 		}).catch((error) => {
 			// Handle any errors
 		});
