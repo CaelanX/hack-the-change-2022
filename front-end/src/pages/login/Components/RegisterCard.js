@@ -1,6 +1,6 @@
 import React from 'react'
 import {useFormik} from 'formik'
-import yup from 'yup'
+import * as yup from 'yup'
 import {FormControl, Input, InputAdornment, InputLabel, Stack} from "@mui/material";
 import {Mail, Person} from "@mui/icons-material";
 

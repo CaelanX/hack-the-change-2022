@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Input, IconButton, InputAdornment, Stack, InputLabel, FormControl, Button,} from "@mui/material";
 import {Visibility, Person, VisibilityOff} from "@mui/icons-material";
-import yup from'yup';
+import * as yup from'yup';
 import {useFormik} from "formik";
 
 
