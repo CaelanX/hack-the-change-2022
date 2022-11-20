@@ -166,7 +166,7 @@ const RegisterCard = () => {
                            value={formik.values.password}
                     />
                 </FormControl>
-                <Stack spacing={2} direction={"row"}>
+                <Stack spacing={3} direction={"row"}>
                     <Button form="register-form" onClick={formik.submitForm} sx={{backgroundColor: "darkred"}} variant='contained'>Register</Button>
                     <a
                         onClick={handleClick}

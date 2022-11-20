@@ -56,13 +56,13 @@ function LoginCard() {
 
     return (
       <div className="login-page">
-        <Typography className="login-title" variant="h1">
+        <Typography className="login-title" sx={{fontWeight: "bold"}} variant="h1">
           Uni<span>Creds</span>
         </Typography>
         <form className="login-form" onSubmit={formik.handleSubmit}>
           <Stack
             sx={{
-              width: "25ch",
+              width: "35ch",
             }}
             justifyContent="center"
             alignItems="center"
@@ -106,7 +106,7 @@ function LoginCard() {
                 }
               />
             </FormControl>
-              <Stack spacing={2} direction={"row"}>
+              <Stack spacing={3} direction={"row"}>
                   <Button sx={{backgroundColor: "darkred"}}
                   type="submit"
                   className="login-button"
