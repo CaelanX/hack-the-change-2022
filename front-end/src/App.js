@@ -15,9 +15,8 @@ import Authentication from "./pages/login/Authentication"
 function App() {
 
   return (
-    <div className="App">
+    <div className="App" style={{backgroundColor: "black"}}>
       <Authentication />
-      {/* <Homepage /> */}
     </div>
   );
 }
