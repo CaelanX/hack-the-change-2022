@@ -55,7 +55,7 @@ const CreateCredentail = () => {
 
 	return (
 		<FormikProvider value={formik}>
-			<TransitionsModal>
+			<TransitionsModal openModel={openModel} setOpenModel={setOpenModel}>
 				<Box sx={{ display: "flex", alignItems: "center", justifyContent: "center" }} >
 					<Grid container >
 						<Grid item xs={12} >
