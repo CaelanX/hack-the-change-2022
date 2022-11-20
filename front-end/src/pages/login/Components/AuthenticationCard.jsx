@@ -6,39 +6,36 @@ import {useFormik} from "formik";
 
 
 function AuthenticationCard() {
+    const [showPassword, setShowPassword] = useState(false)
     const validationSchema = yup.object({
         email: yup
             .string('Enter your email')
             .email('Valid email address required')
             .required('Email is required'),
         password: yup
+            .string('Enter your password')
+            .min(9, 'Password must be 8 characters or longer')
+            .required('Password is required')
 
     })
     const formik = useFormik({
         initialValues: {
-            email: values.email,
-            password: "",
+            email: "email@gmail.com",
+            password: "password",
+        },
+        validationSchema: validationSchema,
+        onSubmit: (values) => {
+
         }
     })
-    const [values, setValues] = useState({
-        email: '',
-        password: '',
-        showPassword: false,
-    })
 
-    const handleChange = (prop) => (event) => {
-        setValues({ ...values, [prop]: event.target.value });
-    };
 
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
 
     const handleClickShowPassword = () => {
-        setValues({
-            ...values,
-            showPassword: !values.showPassword,
-        });
+        setShowPassword(!showPassword);
     };
 
     return <div className="login-div">
@@ -53,8 +50,8 @@ function AuthenticationCard() {
             <FormControl>
                 <InputLabel htmlFor="login-email">Email</InputLabel>
                     <Input id="login-email"
-                        onChange={handleChange('email')}
-                        value={values.email}
+                        onChange={formik.handleChange}
+                        value={formik.values.email}
                         endAdornment={
                             <InputAdornment position="end">
                                 <Person/>
@@ -67,19 +64,19 @@ function AuthenticationCard() {
                 <InputLabel htmlFor="login-password">Password</InputLabel>
                     <Input
                         id="login-password"
-                        type={values.showPassword ? "text" : "password"}
-                        onChange={handleChange('password')}
+                        type={showPassword ? "text" : "password"}
+                        onChange={formik.handleChange}
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton
                                     aria-label="toggle password visibility"
 
-                                    value={values.password}
+                                    value={formik.values.password}
                                     onClick={handleClickShowPassword}
                                     onMouseDown={handleMouseDownPassword}
                                     edge="end"
                                 >
-                                    {values.showPassword ? <Visibility/> : <VisibilityOff/>}
+                                    {showPassword ? <Visibility/> : <VisibilityOff/>}
                                 </IconButton>
                             </InputAdornment>
                         }
