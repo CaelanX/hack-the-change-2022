@@ -9,6 +9,7 @@ import {
   deleteDoc,
   doc,
 } from "firebase/firestore";
+import CreateCredentail from "./pages/CreateCredential/CreateCredentail";
 
 function App() {
   const [newName, setNewName] = useState("");
@@ -43,6 +44,7 @@ function App() {
 
   return (
     <div className="App">
+      <CreateCredentail />
       <input
         placeholder="Name..."
         onChange={(event) => {
