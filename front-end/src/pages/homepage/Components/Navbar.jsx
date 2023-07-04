@@ -11,13 +11,12 @@ import Tooltip from "@mui/material/Tooltip";
 import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
-import { useNavigate } from "react-router-dom";
+import logo from "../../../img/logo.png";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
-
   const [anchorEl, setAnchorEl] = React.useState(null);
   const navigator = useNavigate();
   const open = Boolean(anchorEl);
@@ -27,12 +26,12 @@ export default function Navbar() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const handleLogOut = () => {
-    toast.success("Logging out")
+  const handleLogout = () => {
+    toast.success("Logging Out");
     setTimeout(() => {
-      navigator("/")
+      navigator("/");
     }, 3000);
-  }
+  };
   return (
     <React.Fragment>
       <Box
@@ -46,7 +45,13 @@ export default function Navbar() {
           marginBottom: "20px",
         }}
       >
-        <img src={logo} alt='logo' width='120px' height='70px' style={{ objectFit: 'contain' }} />
+        <img
+          src={logo}
+          alt="logo"
+          width="120px"
+          height="70px"
+          style={{ objectFit: "contain" }}
+        />
         <Tooltip title="Account settings">
           <IconButton
             onClick={handleClick}
@@ -98,7 +103,7 @@ export default function Navbar() {
         <MenuItem>
           <Avatar /> My Account
         </MenuItem>
-        <MenuItem onClick={handleLogOut}>
+        <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
@@ -107,7 +112,7 @@ export default function Navbar() {
       </Menu>
       <ToastContainer
         position="top-right"
-        autoClose={2500}
+        autoClose={3000}
         hideProgressBar={false}
         newestOnTop={false}
         rtl={false}

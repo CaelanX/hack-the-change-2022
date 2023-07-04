@@ -7,12 +7,11 @@ import {Mail, Person} from "@mui/icons-material";
 import {collection, doc, setDoc} from "firebase/firestore";
 import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth'
 import "./RegisterCard.css"
+import {useNavigate} from "react-router-dom";
 
 const RegisterCard = () => {
-    
-    const auth = () => {
-        return getAuth();
-    }
+    const navigator = useNavigate()
+    const auth = getAuth();
 
     const onRegister = async (values) => {
         createUserWithEmailAndPassword(auth, values.email, values.password)
@@ -23,6 +22,9 @@ const RegisterCard = () => {
                 console.log(userCredential)
                 }
             )
+    }
+    const handleClick = () => {
+        navigator("/")
     }
 
     const validationSchema = yup.object({
@@ -162,8 +164,14 @@ const RegisterCard = () => {
                            value={formik.values.password}
                     />
                 </FormControl>
-                <Button form="register-form" onClick={formik.submitForm} sx={{backgroundColor: "darkred"}} variant='contained'>Register</Button>
-
+                <Stack spacing={3} direction={"row"}>
+                    <Button form="register-form" onClick={formik.submitForm} sx={{backgroundColor: "darkred"}} variant='contained'>Register</Button>
+                    <a
+                        onClick={handleClick}
+                    >
+                        <Typography style={{ color: "blue" }}>Back to Login</Typography>
+                    </a>{" "}
+                </Stack>
             </Stack>
             </FormikProvider>
         </form>
